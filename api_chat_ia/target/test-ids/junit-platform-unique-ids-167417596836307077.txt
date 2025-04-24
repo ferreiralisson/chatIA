@@ -1,0 +1,1 @@
+[engine:junit-jupiter]/[class:br.com.facol.api_chat_ia.ApiChatIaApplicationTests]/[method:contextLoads()]

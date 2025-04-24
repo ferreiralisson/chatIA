@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: br.com.facol.api_chat_ia.ApiChatIaApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.610 s -- in br.com.facol.api_chat_ia.ApiChatIaApplicationTests

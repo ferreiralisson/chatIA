@@ -1,0 +1,5 @@
+br/com/facol/api_chat_ia/ApiChatIaApplication.class
+br/com/facol/api_chat_ia/controller/dto/Response.class
+br/com/facol/api_chat_ia/controller/dto/QuestionRequest.class
+br/com/facol/api_chat_ia/controller/AskQuestionController.class
+br/com/facol/api_chat_ia/client/ChatIaClient.class

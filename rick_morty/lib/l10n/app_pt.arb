@@ -1,0 +1,56 @@
+{
+  "@@locale": "pt",
+  "appTitle": "Rick & Morty",
+  "characters": "Personagens",
+  "episodes": "Episódios",
+  "locations": "Localizações",
+  "searchCharacters": "Buscar personagens...",
+  "searchEpisodes": "Buscar episódios...",
+  "searchLocations": "Buscar localizações...",
+  "statusAlive": "Vivo",
+  "statusDead": "Morto",
+  "statusUnknown": "Desconhecido",
+  "noCharactersFound": "Nenhum personagem encontrado",
+  "noEpisodesFound": "Nenhum episódio encontrado",
+  "noLocationsFound": "Nenhuma localização encontrada",
+  "noResidentsFound": "Nenhum residente encontrado",
+  "information": "Informações",
+  "gender": "Gênero",
+  "origin": "Origem",
+  "lastLocation": "Última localização",
+  "episodesCount": "Episódios ({count})",
+  "@episodesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "season": "Temporada {num}",
+  "@season": {
+    "placeholders": {
+      "num": {
+        "type": "String"
+      }
+    }
+  },
+  "residents": "Residentes",
+  "residentsShowing": "Residentes (mostrando 20 de {total})",
+  "@residentsShowing": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "fieldType": "Tipo",
+  "dimension": "Dimensão",
+  "charactersSection": "Personagens",
+  "settings": "Configurações",
+  "theme": "Tema",
+  "darkTheme": "Escuro",
+  "lightTheme": "Claro",
+  "language": "Idioma",
+  "langPortuguese": "Português",
+  "langEnglish": "Inglês"
+}

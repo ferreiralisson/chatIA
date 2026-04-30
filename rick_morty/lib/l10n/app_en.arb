@@ -1,0 +1,56 @@
+{
+  "@@locale": "en",
+  "appTitle": "Rick & Morty",
+  "characters": "Characters",
+  "episodes": "Episodes",
+  "locations": "Locations",
+  "searchCharacters": "Search characters...",
+  "searchEpisodes": "Search episodes...",
+  "searchLocations": "Search locations...",
+  "statusAlive": "Alive",
+  "statusDead": "Dead",
+  "statusUnknown": "Unknown",
+  "noCharactersFound": "No characters found",
+  "noEpisodesFound": "No episodes found",
+  "noLocationsFound": "No locations found",
+  "noResidentsFound": "No residents found",
+  "information": "Information",
+  "gender": "Gender",
+  "origin": "Origin",
+  "lastLocation": "Last Location",
+  "episodesCount": "Episodes ({count})",
+  "@episodesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "season": "Season {num}",
+  "@season": {
+    "placeholders": {
+      "num": {
+        "type": "String"
+      }
+    }
+  },
+  "residents": "Residents",
+  "residentsShowing": "Residents (showing 20 of {total})",
+  "@residentsShowing": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "fieldType": "Type",
+  "dimension": "Dimension",
+  "charactersSection": "Characters",
+  "settings": "Settings",
+  "theme": "Theme",
+  "darkTheme": "Dark",
+  "lightTheme": "Light",
+  "language": "Language",
+  "langPortuguese": "Portuguese",
+  "langEnglish": "English"
+}

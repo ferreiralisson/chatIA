@@ -1,0 +1,7 @@
+# Build output
+api_chat_ia/target/
+
+# Local IDE and OS files
+.idea/
+*.iml
+.DS_Store

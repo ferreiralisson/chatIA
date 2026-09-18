@@ -1,16 +1,56 @@
-# app_chat_ia
+# ChatIA — Flutter Cupertino
 
-A new Flutter project.
+Interface de chat inspirada no ChatGPT, construída com `CupertinoApp`,
+`CupertinoPageScaffold`, `CupertinoTextField` e `CupertinoButton`.
+Não utiliza widgets Material nem fontes de ícones Material.
 
-## Getting Started
+## Executar
 
-This project is a starting point for a Flutter application.
+Inicie a API Spring e o Ollama antes de enviar mensagens. Na pasta deste app:
 
-A few resources to get you started if this is your first Flutter project:
+```sh
+flutter pub get
+flutter run --dart-define=API_BASE_URL=http://localhost:8080
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+O endereço padrão é `http://localhost:8080`. Para o emulador Android:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```sh
+flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8080
+```
+
+Em um celular físico, use o IP do computador na mesma rede. A API precisa estar
+acessível nesse endereço. Para distribuir o app, prefira uma API HTTPS.
+O Android permite HTTP local nas builds de demonstração debug/profile.
+No navegador, uma API em outra origem também precisa permitir CORS.
+
+## Interface
+
+- Layout responsivo: histórico lateral no desktop e painel de conversas no celular.
+- Sugestões que preenchem o campo, mensagens por autor e cópia de respostas.
+- Estado de carregamento, bloqueio de envio duplicado e repetição após erro.
+- Novas conversas e rascunhos separados, mantidos em memória durante a sessão.
+
+A API continua recebendo `POST /ask` com `{"question":"..."}` e devolvendo
+`{"response":"..."}`. O histórico da interface não é enviado ao modelo:
+cada pergunta ainda é independente. Não há persistência após fechar o app
+nem streaming; a resposta aparece completa quando a API termina.
+
+## Organização
+
+- `lib/main.dart`: aplicação e tema Cupertino.
+- `lib/screens/chat_screen.dart`: conversas, composição e layout responsivo.
+- `lib/widgets/chat_widgets.dart`: mensagens, sugestões e controles.
+- `lib/models/conversation.dart`: conversas e autores das mensagens.
+- `lib/services/chat_service.dart`: HTTP, configuração da URL e tratamento de erros.
+
+## Validação
+
+```sh
+flutter analyze
+flutter test
+flutter build web
+```
+
+Os testes usam uma API simulada para verificar envio, caracteres acentuados,
+falhas, repetição, conversas e descarte da tela durante uma requisição.

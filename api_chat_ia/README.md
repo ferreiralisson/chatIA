@@ -19,6 +19,7 @@ A API não baixa modelos automaticamente. Prepare o modelo antes de fazer pergun
 | --- | --- | --- |
 | `OLLAMA_BASE_URL` | `http://localhost:11434` | Endereço do servidor Ollama |
 | `OLLAMA_MODEL` | `qwen3.5:4b` | Modelo instalado no Ollama |
+| `APP_CORS_ALLOWED_ORIGINS` | `http://localhost:5173,http://127.0.0.1:5173` | Origens web permitidas em `/ask`, separadas por vírgula |
 
 ## Fazer uma pergunta
 

@@ -64,6 +64,29 @@ class ApiChatIaApplicationTests {
     }
 
     @Test
+    void allowsWebPreviewPreflightAndRejectsOtherOrigins() throws Exception {
+        try (HttpClient client = HttpClient.newHttpClient()) {
+            for (String origin : new String[]{"http://localhost:5173", "http://127.0.0.1:5173", "https://example.com"}) {
+                var request = HttpRequest.newBuilder(URI.create("http://localhost:" + port + "/ask"))
+                        .timeout(Duration.ofSeconds(10))
+                        .header("Origin", origin)
+                        .header("Access-Control-Request-Method", "POST")
+                        .header("Access-Control-Request-Headers", "content-type")
+                        .method("OPTIONS", HttpRequest.BodyPublishers.noBody())
+                        .build();
+                var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                if (origin.equals("https://example.com")) {
+                    assertThat(response.statusCode()).isEqualTo(403);
+                    assertThat(response.headers().firstValue("Access-Control-Allow-Origin")).isEmpty();
+                } else {
+                    assertThat(response.statusCode()).isEqualTo(200);
+                    assertThat(response.headers().firstValue("Access-Control-Allow-Origin")).contains(origin);
+                }
+            }
+        }
+    }
+
+    @Test
     void askPreservesFlutterContractAndCallsOllamaThroughSpringAi() throws Exception {
         try (HttpClient client = HttpClient.newHttpClient()) {
             var request = HttpRequest.newBuilder(URI.create("http://localhost:" + port + "/ask"))

@@ -1,5 +1,7 @@
 # ChatIA — Flutter Cupertino
 
+Para executar API, Ollama e app juntos, veja o [guia na raiz do projeto](../README.md).
+
 Interface de chat inspirada no ChatGPT, construída com `CupertinoApp`,
 `CupertinoPageScaffold`, `CupertinoTextField` e `CupertinoButton`.
 Não utiliza widgets Material nem fontes de ícones Material.

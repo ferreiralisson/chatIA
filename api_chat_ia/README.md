@@ -1,5 +1,7 @@
 # API Chat IA
 
+Para executar API, Ollama e app juntos, veja o [guia na raiz do projeto](../README.md).
+
 API Java 21 com Spring Boot 4.1.1 e Spring AI 2.0.1, integrada ao Ollama.
 
 ## Executar

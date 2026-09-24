@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import '../models/conversation.dart';
 import '../services/chat_service.dart';
 import '../widgets/chat_widgets.dart';
+import '../theme/app_theme.dart';
+import 'settings_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key, this.service});
@@ -89,7 +91,7 @@ class _ChatScreenState extends State<ChatScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted || !_scroll.hasClients) return;
       _scroll.animateTo(_scroll.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
+          duration: Duration(milliseconds: 250), curve: Curves.easeOut);
     });
   }
 
@@ -109,15 +111,15 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget _sidebar({VoidCallback? onSelected}) => Container(
-        color: const Color(0xFFF9F9F9),
+        color: ChatPalette.of(context).sidebar,
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 12, 20),
+            padding: EdgeInsets.fromLTRB(20, 20, 12, 20),
             child: Row(children: [
-              const Icon(CupertinoIcons.sparkles, size: 23),
-              const SizedBox(width: 10),
-              const Expanded(
+              Icon(CupertinoIcons.sparkles, size: 23),
+              SizedBox(width: 10),
+              Expanded(
                   child: Text('ChatIA',
                       style: TextStyle(
                           fontSize: 19, fontWeight: FontWeight.w600))),
@@ -129,46 +131,47 @@ class _ChatScreenState extends State<ChatScreen> {
             ]),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: EdgeInsets.symmetric(horizontal: 12),
             child: CupertinoButton(
-              color: const Color(0xFFECECEC),
+              color: ChatPalette.of(context).selected,
               borderRadius: BorderRadius.circular(12),
-              padding: const EdgeInsets.all(14),
+              padding: EdgeInsets.all(14),
               onPressed: () {
                 _newConversation();
                 onSelected?.call();
               },
-              child: const Row(children: [
+              child: Row(children: [
                 Icon(CupertinoIcons.square_pencil,
-                    size: 19, color: Color(0xFF202123)),
+                    size: 19, color: ChatPalette.of(context).text),
                 SizedBox(width: 10),
                 Text('Nova conversa',
-                    style: TextStyle(fontSize: 14, color: Color(0xFF202123))),
+                    style: TextStyle(
+                        fontSize: 14, color: ChatPalette.of(context).text)),
               ]),
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.fromLTRB(24, 32, 24, 12),
             child: Text('Suas conversas',
                 style: TextStyle(
                     fontSize: 12,
-                    color: secondaryText,
+                    color: ChatPalette.of(context).secondaryText,
                     fontWeight: FontWeight.w600)),
           ),
           Expanded(
               child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: EdgeInsets.symmetric(horizontal: 12),
             children: _conversations
                 .where((c) => c.messages.isNotEmpty)
                 .map((c) => Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
+                      padding: EdgeInsets.only(bottom: 4),
                       child: CupertinoButton(
                         color: identical(c, _active)
-                            ? const Color(0xFFECECEC)
+                            ? ChatPalette.of(context).selected
                             : null,
                         borderRadius: BorderRadius.circular(10),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 14),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 14),
                         onPressed: () {
                           _select(c);
                           onSelected?.call();
@@ -178,19 +181,21 @@ class _ChatScreenState extends State<ChatScreen> {
                             child: Text(c.title,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontSize: 14, color: Color(0xFF202123)))),
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: ChatPalette.of(context).text))),
                       ),
                     ))
                 .toList(),
           )),
           Container(
-            padding: const EdgeInsets.all(20),
-            decoration: const BoxDecoration(
-                border: Border(top: BorderSide(color: line))),
-            child: const Row(children: [
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+                border: Border(
+                    top: BorderSide(color: ChatPalette.of(context).line))),
+            child: Row(children: [
               Icon(CupertinoIcons.chat_bubble_2,
-                  size: 21, color: secondaryText),
+                  size: 21, color: ChatPalette.of(context).secondaryText),
               SizedBox(width: 12),
               Expanded(
                   child: Column(
@@ -200,7 +205,9 @@ class _ChatScreenState extends State<ChatScreen> {
                         style: TextStyle(fontSize: 13)),
                     SizedBox(height: 4),
                     Text('Conversas nesta sessão',
-                        style: TextStyle(fontSize: 11, color: secondaryText)),
+                        style: TextStyle(
+                            fontSize: 11,
+                            color: ChatPalette.of(context).secondaryText)),
                   ])),
             ]),
           ),
@@ -208,68 +215,71 @@ class _ChatScreenState extends State<ChatScreen> {
       );
 
   Widget _composer() => Padding(
-        padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
+        padding: EdgeInsets.fromLTRB(20, 8, 20, 12),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           Container(
-            padding: const EdgeInsets.fromLTRB(16, 8, 10, 10),
+            padding: EdgeInsets.fromLTRB(16, 8, 10, 10),
             decoration: BoxDecoration(
-              color: surface,
+              color: ChatPalette.of(context).surface,
               borderRadius: BorderRadius.circular(28),
-              border: Border.all(color: const Color(0xFFE5E5E5)),
+              border: Border.all(color: ChatPalette.of(context).line),
             ),
             child: Column(children: [
               CupertinoTextField(
-                key: const Key('message-input'),
+                key: Key('message-input'),
                 controller: _input,
                 focusNode: _focus,
                 placeholder: 'Pergunte alguma coisa',
-                placeholderStyle:
-                    const TextStyle(color: secondaryText, fontSize: 16),
+                placeholderStyle: TextStyle(
+                    color: ChatPalette.of(context).secondaryText, fontSize: 16),
                 decoration: null,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 4, vertical: 12),
+                padding: EdgeInsets.symmetric(horizontal: 4, vertical: 12),
                 minLines: 1,
                 maxLines: 5,
                 textInputAction: TextInputAction.send,
                 onSubmitted: (_) => _send(),
                 onChanged: (_) => setState(() {}),
-                style: const TextStyle(fontSize: 16, height: 1.4),
+                style: TextStyle(fontSize: 16, height: 1.4),
               ),
               Row(children: [
-                const Padding(
+                Padding(
                     padding: EdgeInsets.only(left: 4),
                     child: Icon(CupertinoIcons.sparkles,
-                        size: 16, color: secondaryText)),
-                const SizedBox(width: 6),
-                const Expanded(
+                        size: 16,
+                        color: ChatPalette.of(context).secondaryText)),
+                SizedBox(width: 6),
+                Expanded(
                     child: Text('Vamos explorar uma ideia',
-                        style: TextStyle(fontSize: 12, color: secondaryText))),
-                const SizedBox(width: 8),
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: ChatPalette.of(context).secondaryText))),
+                SizedBox(width: 8),
                 Semantics(
                   label: 'Enviar mensagem',
                   button: true,
                   child: CupertinoButton(
-                    key: const Key('send-message'),
-                    padding: const EdgeInsets.all(12),
-                    color: const Color(0xFF202123),
-                    disabledColor: const Color(0xFFD6D6D6),
+                    key: Key('send-message'),
+                    padding: EdgeInsets.all(12),
+                    color: ChatPalette.of(context).text,
+                    disabledColor: ChatPalette.of(context).disabled,
                     borderRadius: BorderRadius.circular(24),
                     onPressed: _active.isLoading || _input.text.trim().isEmpty
                         ? null
                         : () => _send(),
-                    child: const Icon(CupertinoIcons.arrow_up,
-                        size: 20, color: CupertinoColors.white),
+                    child: Icon(CupertinoIcons.arrow_up,
+                        size: 20, color: ChatPalette.of(context).onAction),
                   ),
                 ),
               ]),
             ]),
           ),
-          const SizedBox(height: 10),
-          const Text(
-              'A IA pode cometer erros. Confira informações importantes.',
+          SizedBox(height: 10),
+          Text('A IA pode cometer erros. Confira informações importantes.',
               textAlign: TextAlign.center,
-              style:
-                  TextStyle(color: secondaryText, fontSize: 11, height: 1.4)),
+              style: TextStyle(
+                  color: ChatPalette.of(context).secondaryText,
+                  fontSize: 11,
+                  height: 1.4)),
         ]),
       );
 
@@ -283,21 +293,30 @@ class _ChatScreenState extends State<ChatScreen> {
               Expanded(
                   child: Column(children: [
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   child: Row(children: [
                     if (!wide)
                       ChatIconButton(
                           label: 'Abrir conversas',
                           icon: CupertinoIcons.sidebar_left,
                           onPressed: _showConversations),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12),
                       child: Text('ChatIA',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600)),
                     ),
-                    const Spacer(),
+                    Spacer(),
+                    ChatIconButton(
+                      label: 'Configurações',
+                      icon: CupertinoIcons.gear,
+                      onPressed: () {
+                        _focus.unfocus();
+                        Navigator.of(context).push(CupertinoPageRoute<void>(
+                          builder: (_) => const SettingsScreen(),
+                        ));
+                      },
+                    ),
                     ChatIconButton(
                         label: 'Nova conversa',
                         icon: CupertinoIcons.square_pencil,
@@ -313,16 +332,15 @@ class _ChatScreenState extends State<ChatScreen> {
                         : Align(
                             alignment: Alignment.topCenter,
                             child: ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 800),
+                              constraints: BoxConstraints(maxWidth: 800),
                               child: ListView(
                                 controller: _scroll,
-                                padding:
-                                    const EdgeInsets.fromLTRB(24, 28, 24, 12),
+                                padding: EdgeInsets.fromLTRB(24, 28, 24, 12),
                                 children: [
                                   ..._active.messages.map((m) => MessageView(
                                       key: ObjectKey(m), message: m)),
                                   if (_active.isLoading)
-                                    const Padding(
+                                    Padding(
                                       padding:
                                           EdgeInsets.symmetric(vertical: 16),
                                       child: Row(children: [
@@ -330,7 +348,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                         SizedBox(width: 12),
                                         Text('Preparando uma resposta…',
                                             style: TextStyle(
-                                                color: secondaryText,
+                                                color: ChatPalette.of(context)
+                                                    .secondaryText,
                                                 fontSize: 14)),
                                       ]),
                                     ),
@@ -340,16 +359,16 @@ class _ChatScreenState extends State<ChatScreen> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(_active.error!,
-                                              style: const TextStyle(
-                                                  color:
-                                                      CupertinoColors.systemRed,
+                                              style: TextStyle(
+                                                  color: CupertinoColors
+                                                      .systemRed
+                                                      .resolveFrom(context),
                                                   height: 1.5)),
                                           CupertinoButton(
-                                            padding: const EdgeInsets.symmetric(
+                                            padding: EdgeInsets.symmetric(
                                                 vertical: 12),
                                             onPressed: () => _send(retry: true),
-                                            child:
-                                                const Text('Tentar novamente'),
+                                            child: Text('Tentar novamente'),
                                           ),
                                         ]),
                                 ],
@@ -359,7 +378,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 Align(
                     alignment: Alignment.bottomCenter,
                     child: ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 800),
+                        constraints: BoxConstraints(maxWidth: 800),
                         child: _composer())),
               ])),
             ]);

@@ -24,6 +24,13 @@ acessível nesse endereço. Para distribuir o app, prefira uma API HTTPS.
 O Android permite HTTP local nas builds de demonstração debug/profile.
 No navegador, uma API em outra origem também precisa permitir CORS.
 
+## Aparência
+
+Toque na engrenagem no topo do chat para abrir **Configurações → Aparência**.
+Escolha **Sistema**, **Claro** ou **Escuro**. O padrão é Sistema, que acompanha
+as mudanças de aparência do dispositivo. A preferência é salva localmente e
+restaurada ao reabrir o aplicativo; trocar o tema preserva conversas e rascunhos.
+
 ## Interface
 
 - Layout responsivo: histórico lateral no desktop e painel de conversas no celular.
